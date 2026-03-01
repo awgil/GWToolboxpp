@@ -17,6 +17,7 @@
 #include <Widgets/Minimap/PmapRenderer.h>
 #include <Widgets/Minimap/RangeRenderer.h>
 #include <Widgets/Minimap/SymbolsRenderer.h>
+#include <Widgets/Minimap/TreasureRenderer.h>
 
 // Context structure that encapsulates all rendering parameters
 struct MinimapRenderContext : RectF {
@@ -96,6 +97,8 @@ public:
     bool CanTerminate() override;
     void Terminate() override;
 
+    void Update(float delta) override;
+
     // Widget-based rendering (uses internal state)
     void Draw(IDirect3DDevice9* device) override;
 
@@ -134,6 +137,7 @@ public:
     SymbolsRenderer symbols_renderer;
     CustomRenderer custom_renderer;
     EffectRenderer effect_renderer;
+    TreasureRenderer treasure_renderer;
     std::vector<MinimapRenderer*> registered_renderers;
 
     static bool ShouldMarkersDrawOnMap();
