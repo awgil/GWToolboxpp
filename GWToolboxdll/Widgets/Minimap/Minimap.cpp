@@ -785,6 +785,7 @@ void Minimap::Terminate()
     symbols_renderer.Terminate();
     custom_renderer.Terminate();
     effect_renderer.Terminate();
+    treasure_renderer.Terminate();
     GameWorldRenderer::Terminate();
 }
 
@@ -842,6 +843,8 @@ void Minimap::Initialize()
 
     pmap_renderer.Invalidate();
     range_renderer.Invalidate();
+
+    treasure_renderer.Initialize();
 
     GW::Chat::CreateCommand(&ChatCmd_HookEntry, L"flag", &OnFlagHeroCmd);
     GW::GameThread::Enqueue(EnsureCompassIsLoaded);
@@ -1204,6 +1207,7 @@ void Minimap::LoadSettings(ToolboxIni* ini)
     symbols_renderer.LoadSettings(ini, Name());
     custom_renderer.LoadSettings(ini, Name());
     effect_renderer.LoadSettings(ini, Name());
+    treasure_renderer.LoadSettings(ini, Name());
     GameWorldRenderer::LoadSettings(ini, Name());
 
     range_renderer.Invalidate();
@@ -1250,6 +1254,7 @@ void Minimap::SaveSettings(ToolboxIni* ini)
     pingslines_renderer.SaveSettings(ini, Name());
     symbols_renderer.SaveSettings(ini, Name());
     custom_renderer.SaveSettings(ini, Name());
+    treasure_renderer.SaveSettings(ini, Name());
     EffectRenderer::SaveSettings(ini, Name());
     GameWorldRenderer::SaveSettings(ini, Name());
 }
@@ -1305,6 +1310,11 @@ float Minimap::GetMapRotation() const
         yaw = DirectX::XM_PI + yaw;
     }
     return yaw;
+}
+
+void Minimap::Update(float)
+{
+    treasure_renderer.Update();
 }
 
 void Minimap::Draw(IDirect3DDevice9* device)
@@ -1602,6 +1612,7 @@ void Minimap::Render(IDirect3DDevice9* device, const MinimapRenderContext& conte
     instance.agent_renderer.Render(device);
     instance.effect_renderer.Render(device);
     instance.pingslines_renderer.Render(device);
+    instance.treasure_renderer.Render(device);
     
     DrawNSEW(me, context);
 
