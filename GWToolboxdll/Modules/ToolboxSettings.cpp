@@ -70,8 +70,8 @@
 #include <Windows/EnemyWindow.h>
 #include <Windows/Pathfinding/PathfindingWindow.h>
 #include <Windows/DropTrackerWindow.h>
-#ifdef _DEBUG
 #include <Windows/PacketLoggerWindow.h>
+#ifdef _DEBUG
 #include <Windows/DoorMonitorWindow.h>
 #include <Windows/StringDecoderWindow.h>
 #include <Windows/SkillListingWindow.h>
@@ -248,12 +248,12 @@ void ToolboxSettings::LoadModules(ToolboxIni* ini)
 
     inifile = ini;
 
-#ifdef _DEBUG
 #if 0
     GWToolbox::ToggleModule(PartySearchWindow::Instance());
     GWToolbox::ToggleModule(GWFileRequester::Instance());
 #endif
     GWToolbox::ToggleModule(PacketLoggerWindow::Instance());
+#ifdef _DEBUG
     GWToolbox::ToggleModule(StringDecoderWindow::Instance());
     GWToolbox::ToggleModule(DoorMonitorWindow::Instance());
     GWToolbox::ToggleModule(SkillListingWindow::Instance());

@@ -577,6 +577,7 @@ void PacketLoggerWindow::PacketHandler(GW::HookStatus* status, GW::Packet::StoC:
     else {
         printf(PrefixTimestamp("StoC packet(%u 0x%X) {\n").c_str(), packet->header, packet->header);
     }
+    fflush(stdout);
 }
 
 std::string PacketLoggerWindow::PadLeft(std::string input, const uint8_t count, const char c)
